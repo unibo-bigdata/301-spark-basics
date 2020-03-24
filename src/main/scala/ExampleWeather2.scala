@@ -3,6 +3,8 @@ import org.apache.spark.sql.SparkSession
 // spark2-submit --class ExampleWeather2 BD-301-spark-basics.jar
 object ExampleWeather2 extends App {
 
+  val username = "egallinucci"
+
   // Function to parse weather records; returns key -value pairs in the form(month, temperature)
   def parseWeatherLine(line: String): (String, Double) = {
     val year = line.substring(15, 19)
@@ -28,7 +30,7 @@ object ExampleWeather2 extends App {
     val rddResult = rddAvgTempPerMonth.sortByKey().coalesce(1)
 
     //Save the RDD on HDFS; the directory should NOT exist
-    rddResult.saveAsTextFile("hdfs:/user/egallinucci/spark/avgTempPerMonth")
+    rddResult.saveAsTextFile("hdfs:/user/" + username + "/spark/avgTempPerMonth")
   }
 
 }
